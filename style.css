@@ -1,0 +1,30 @@
+.controls {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.controls .input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.controls .input .column {
+  display: flex;
+  flex-direction: column;
+}
+
+.controls .input .column.right input {
+  width: 30px;
+}
+
+.controls .input .column label {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+}
+
+.controls .controls__confirm {
+
+}

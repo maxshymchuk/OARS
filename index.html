@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link href="style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" crossorigin="anonymous">
+</head>
+<body>
+  <main>
+    <section class="controls">
+      <section class="input">
+        <section class="column left">
+          <label for="controls__input_n">
+            Input n
+            <input type="text" name="controls__input_n" id="controls__input_n" value="3">
+          </label>
+          <label for="controls__input_m">
+            Input m
+            <input type="text" name="controls__input_m" id="controls__input_m" value="20">
+          </label>
+          <label for="controls__input_h">
+            Input h
+            <input type="text" name="controls__input_h" id="controls__input_h" value="1">
+          </label>
+          <label for="controls__input_hmin">
+            Input hmin
+            <input type="text" name="controls__input_hmin" id="controls__input_hmin" value="0,001">
+          </label>
+          <label for="controls__input_function">
+            Input function
+            <input type="text" name="controls__input_function" id="controls__input_function" value="(1-x1)^2+(2-x2)^2+(3-x3)^2">
+          </label>
+          <div class="visual_formula" id="visual_formula"></div>
+          <input class="controls__apply" id="controls__apply" type="button" value="Apply">
+        </section>
+        <section class="column right">
+          <template id="template__input_x">
+            <div class="input_x_row">
+              <label for="controls__input_x">Input x</label>
+              <input type="text" name="controls__input_x" id="controls__input_x" value="0">
+              <label for="controls__input_x">x min</label>
+              <input type="text" name="controls__input_xmin" id="controls__input_xmin" value="0">
+              <label for="controls__input_x">x max</label>
+              <input type="text" name="controls__input_xmax" id="controls__input_xmax" value="0">
+              <label for="controls__input_x">const c</label>
+              <input type="text" name="controls__input_const" id="controls__input_c" value="0">
+            </div>
+          </template>
+        </section>
+      </section>
+      <input class="controls__confirm" id="controls__confirm" type="button" value="Confirm">
+    </section>
+
+  </main>
+
+  <script src="dist/bundle.js"></script>
+</body>
+</html>
