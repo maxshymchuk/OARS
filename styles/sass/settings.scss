@@ -1,0 +1,93 @@
+@import './mixins.scss';
+
+.settings {
+  @include container;
+  margin: -$item_gap / 2;
+
+  .settings__setup {
+    display: flex;
+    flex-direction: column;
+    margin: $item_gap / 2;
+
+    .settings__label_parameter {
+      @include list-item;
+      margin-bottom: $item_gap / 2;
+
+      .label {
+        @include list-item-label;
+        width: 45%;
+      }
+
+      input {
+        @include list-item-input;
+        &.error {
+          background-color: $input_error_background_color;
+        }
+      }
+    }
+
+    .settings__button_apply {
+      margin-top: auto;
+    }
+  }
+
+  .settings__values {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: $item_gap / 2;
+    overflow-y: auto;
+    max-height: 6 * ($item_height + $item_gap) + $item_gap / 4;
+
+    .placeholder {
+      display: block;
+      margin: auto;
+      text-align: center;
+    }
+
+    .title {
+      display: none;
+      padding-left: calc(1rem + 10px);
+      margin: -$item_gap / 4;
+      margin-bottom: $item_gap / 4;
+
+      span {
+        margin: $item_gap / 4;
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    .table {
+      display: none;
+      margin: -$item_gap / 4;
+      counter-reset: section;
+
+      .table_line {
+        display: flex;
+
+        input {
+          min-width: 0;
+          margin: $item_gap / 4;
+        }
+
+        &:before {
+          line-height: $item_line_height + $item_gap / 2;
+          padding: 0 5px;
+          min-width: 1rem;
+          counter-increment: section;
+          content: counter(section)".";
+        }
+      }
+    }
+  }
+
+  .settings__button_apply {
+    background-color: $accent_color;
+
+    &:hover {
+      background-color: $accent_hover_color;
+    }
+  }
+}

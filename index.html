@@ -4,54 +4,112 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link href="style.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" crossorigin="anonymous">
+  <link rel="shortcut icon" type="image/png" href="assets/favicon.ico"/>
+  <link href="styles/style.css" rel="stylesheet">
+  <title>OARS</title>
 </head>
 <body>
+  <template id="template__alert">
+    <div class="modal__container">
+      <div class="modal alert">
+        <article class="title"></article>
+        <section class="content"></section>
+        <button class="close"></button>
+      </div>
+    </div>
+  </template>
+
+  <header>
+    Оптимизация методом случайного поиска
+  </header>
   <main>
-    <section class="controls">
-      <section class="input">
-        <section class="column left">
-          <label for="controls__input_n">
-            Input n
-            <input type="text" name="controls__input_n" id="controls__input_n" value="3">
-          </label>
-          <label for="controls__input_m">
-            Input m
-            <input type="text" name="controls__input_m" id="controls__input_m" value="20">
-          </label>
-          <label for="controls__input_h">
-            Input h
-            <input type="text" name="controls__input_h" id="controls__input_h" value="1">
-          </label>
-          <label for="controls__input_hmin">
-            Input hmin
-            <input type="text" name="controls__input_hmin" id="controls__input_hmin" value="0,001">
-          </label>
-          <label for="controls__input_function">
-            Input function
-            <input type="text" name="controls__input_function" id="controls__input_function" value="(1-x1)^2+(2-x2)^2+(3-x3)^2">
-          </label>
-          <div class="visual_formula" id="visual_formula"></div>
-          <input class="controls__apply" id="controls__apply" type="button" value="Apply">
-        </section>
-        <section class="column right">
-          <template id="template__input_x">
-            <div class="input_x_row">
-              <label for="controls__input_x">Input x</label>
-              <input type="text" name="controls__input_x" id="controls__input_x" value="0">
-              <label for="controls__input_x">x min</label>
-              <input type="text" name="controls__input_xmin" id="controls__input_xmin" value="0">
-              <label for="controls__input_x">x max</label>
-              <input type="text" name="controls__input_xmax" id="controls__input_xmax" value="0">
-              <label for="controls__input_x">const c</label>
-              <input type="text" name="controls__input_const" id="controls__input_c" value="0">
+
+    <section class="settings">
+      <div class="settings__setup card">
+        <label class="settings__label_parameter" for="settings__input_n">
+          <span class="label">Число параметров</span>
+          <input type="text" name="settings__input_n" id="settings__input_n" placeholder="1, 2, 3, ...">
+        </label>
+        <label class="settings__label_parameter" for="settings__input_m">
+          <span class="label">Число попыток</span>
+          <input type="text" name="settings__input_m" id="settings__input_m" placeholder="1, 2, 3, ...">
+        </label>
+        <label class="settings__label_parameter" for="settings__input_h">
+          <span class="label">Начальный шаг</span>
+          <input type="text" name="settings__input_h" id="settings__input_h" placeholder="0 ... 1">
+        </label>
+        <label class="settings__label_parameter" for="settings__input_hmin">
+          <span class="label">Конечный шаг</span>
+          <input type="text" name="settings__input_hmin" id="settings__input_hmin" placeholder="0 ... 1">
+        </label>
+        <button class="settings__button_apply" id="settings__button_apply">Применить</button>
+      </div>
+
+      <div class="settings__values card">
+        <span class="placeholder">
+          Примените значения для ввода переменных
+        </span>
+
+        <div class="title">
+          <span>X</span>
+          <span>X min</span>
+          <span>X max</span>
+        </div>
+
+        <div class="table" id="values_table">
+          <template id="template__table_line">
+            <div class="table_line">
+              <input type="text" id="settings__input_x" placeholder="0">
+              <input type="text" id="settings__input_min" placeholder="0">
+              <input type="text" id="settings__input_max" placeholder="0">
             </div>
           </template>
-        </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="target">
+      <div class="card">
+        <label class="target__label_function" for="target__input_function">
+          <span class="label">Введите целевую функцию</span>
+          <div class="input_group">
+            <input type="text" id="target__input_function" name="expression" placeholder="(1-x1)^2+(2-x2)^2+(3-x3)^2">
+            <div class="formula card"></div>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <section class="limitations">
+      <details class="details card">
+        <summary class="title">Ограничения</summary>
+        <div class="limitations_container">
+          <section class="list">
+            <div class="list_item">
+
+            </div>
+          </section>
+          <button class="button_add">Добавить</button>
+        </div>
+      </details>
+    </section>
+
+    <section class="result">
+      <div class="card">
+        <div class="title">
+          Результаты
+        </div>
+        <div class="result__list">
+
+        </div>
+      </div>
+    </section>
+
+    <section class="controls">
+      <section class="controls__container">
+        <button class="controls__button_result" id="controls__button_result">К результатам</button>
+        <button class="controls__button_calculate" id="controls__button_calculate" disabled>Рассчитать</button>
       </section>
-      <input class="controls__confirm" id="controls__confirm" type="button" value="Confirm">
     </section>
 
   </main>

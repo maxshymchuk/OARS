@@ -1,0 +1,21 @@
+@mixin container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: $item_gap 0;
+}
+
+@mixin list-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin list-item-label {
+  line-height: $item_line_height;
+  white-space: nowrap;
+}
+
+@mixin list-item-input {
+  flex: 1;
+}

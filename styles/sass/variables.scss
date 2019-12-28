@@ -1,0 +1,27 @@
+$accent_color: rgb(255, 187, 0);
+$accent_hover_color: rgb(255, 174, 0);
+$accent_disabled_color: rgb(255, 233, 160);
+$card_color: #FFFFFF;
+
+$document_max_width: 980px;
+
+$box_shadow_color: #999999;
+$box_shadow: 0 1px 5px 0 $box_shadow_color;
+
+$border_radius: 4px;
+
+$item_gap: 20px;
+$item_height: 25px;
+$item_line_height: 25px;
+
+$input_background_color: #DDDDDD;
+$input_error_background_color: rgb(255, 109, 109);
+
+$button_color: #DDDDDD;
+$button_hover_color: #CCCCCC;
+
+$controls_height: 2 * $item_height;
+
+$modal_container_background_color: rgba(255, 255, 255, 0.5);
+
+$transition_time: 300ms;

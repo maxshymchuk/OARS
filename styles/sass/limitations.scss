@@ -1,0 +1,33 @@
+@import './mixins.scss';
+
+.limitations {
+  @include container;
+
+  .details {
+    padding: 0;
+
+    summary {
+      padding: $item_gap / 2;
+      cursor: pointer;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .limitations_container {
+      display: flex;
+      flex-direction: column;
+      margin: 0 $item_gap / 2;
+
+      .list {
+        border-top: 1px solid #000;
+      }
+
+      .button_add {
+        width: 100%;
+        margin: $item_gap / 2 auto;
+      }
+    }
+  }
+}

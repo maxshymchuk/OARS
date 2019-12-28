@@ -1,0 +1,6 @@
+@import './mixins.scss';
+
+.result {
+  @include container;
+
+}

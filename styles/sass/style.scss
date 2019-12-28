@@ -1,0 +1,74 @@
+@import './variables.scss';
+@import './animations.scss';
+@import './settings.scss';
+@import './target.scss';
+@import './limitations.scss';
+@import './result.scss';
+@import './controls.scss';
+@import './modal.scss';
+@import './katex.scss';
+
+body {
+  margin: 0;
+
+  * {
+    font-family: 'ARIAL';
+  }
+}
+
+header {
+  max-width: $document_max_width;
+  text-align: center;
+  font-size: 20px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+main {
+  max-width: $document_max_width;
+  width: 90%;
+  margin: 0 auto;
+}
+
+input[type=text] {
+  border: none;
+  line-height: $item_line_height;
+  background-color: $input_background_color;
+  border-radius: $border_radius;
+  padding: 0 10px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+input[type=button],
+button {
+  background-color: $button_color;
+  height: $item_height;
+  border-radius: $border_radius;
+  border: none;
+  cursor: pointer;
+  transition: $transition_time;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: $button_hover_color;
+  }
+}
+
+.card {
+  background-color: $card_color;
+  box-shadow: $box_shadow;
+  border-radius: $border_radius;
+  padding: 10px;
+  flex-grow: 1;
+  transition: $transition_time;
+
+  &:hover {
+    box-shadow: 0 1px 10px $box_shadow_color;
+  }
+}

@@ -6,7 +6,8 @@
   "scripts": {
     "watch": "webpack --watch",
     "start": "webpack-dev-server --open",
-    "build": "webpack"
+    "build": "webpack",
+    "sass": "sass styles/sass/style.scss:styles/style.css --no-source-map --watch"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "@types/mathjs": "^6.0.2",
     "@types/webpack": "^4.41.0",
     "@types/webpack-dev-server": "^3.9.0",
+    "sass": "^1.24.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
     "webpack": "^4.41.4",
