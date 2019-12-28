@@ -24,3 +24,14 @@ export function rand(a: number, b: number): number {
 export function randInt(a: number, b: number): number {
   return Math.round(Math.random() * (b - a) + a);
 }
+
+export function scrollToPos(pos: number): void {
+  window.scroll({
+    top: pos,
+    behavior: 'smooth'
+  });
+}
+
+export function check() {
+
+}

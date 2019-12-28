@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="shortcut icon" type="image/png" href="assets/favicon.ico"/>
   <link href="styles/style.css" rel="stylesheet">
-  <title>OARS</title>
+  <title>RSOA</title>
 </head>
 <body>
   <template id="template__alert">
@@ -28,19 +28,19 @@
       <div class="settings__setup card">
         <label class="settings__label_parameter" for="settings__input_n">
           <span class="label">Число параметров</span>
-          <input type="text" name="settings__input_n" id="settings__input_n" placeholder="1, 2, 3, ...">
+          <input type="number" name="settings__input_n" id="settings__input_n" placeholder="1, 2, 3, ...">
         </label>
         <label class="settings__label_parameter" for="settings__input_m">
           <span class="label">Число попыток</span>
-          <input type="text" name="settings__input_m" id="settings__input_m" placeholder="1, 2, 3, ...">
+          <input type="number" name="settings__input_m" id="settings__input_m" placeholder="1, 2, 3, ...">
         </label>
         <label class="settings__label_parameter" for="settings__input_h">
           <span class="label">Начальный шаг</span>
-          <input type="text" name="settings__input_h" id="settings__input_h" placeholder="0 ... 1">
+          <input type="number" name="settings__input_h" id="settings__input_h" placeholder="0 ... 1">
         </label>
         <label class="settings__label_parameter" for="settings__input_hmin">
           <span class="label">Конечный шаг</span>
-          <input type="text" name="settings__input_hmin" id="settings__input_hmin" placeholder="0 ... 1">
+          <input type="number" name="settings__input_hmin" id="settings__input_hmin" placeholder="0 ... 1">
         </label>
         <button class="settings__button_apply" id="settings__button_apply">Применить</button>
       </div>
@@ -49,22 +49,19 @@
         <span class="placeholder">
           Примените значения для ввода переменных
         </span>
-
         <div class="title">
           <span>X</span>
           <span>X min</span>
           <span>X max</span>
         </div>
-
-        <div class="table" id="values_table">
-          <template id="template__table_line">
-            <div class="table_line">
-              <input type="text" id="settings__input_x" placeholder="0">
-              <input type="text" id="settings__input_min" placeholder="0">
-              <input type="text" id="settings__input_max" placeholder="0">
-            </div>
-          </template>
-        </div>
+        <template id="template__table_line">
+          <div class="table_line">
+            <input type="number" id="settings__input_x" placeholder="0">
+            <input type="number" id="settings__input_min" placeholder="0">
+            <input type="number" id="settings__input_max" placeholder="0">
+          </div>
+        </template>
+        <div class="table" id="values_table"></div>
       </div>
     </section>
 
@@ -85,9 +82,7 @@
         <summary class="title">Ограничения</summary>
         <div class="limitations_container">
           <section class="list">
-            <div class="list_item">
-
-            </div>
+            <div class="list_item"></div>
           </section>
           <button class="button_add">Добавить</button>
         </div>
@@ -99,9 +94,7 @@
         <div class="title">
           Результаты
         </div>
-        <div class="result__list">
-
-        </div>
+        <div class="result__list" id="result__list"></div>
       </div>
     </section>
 

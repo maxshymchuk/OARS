@@ -22,3 +22,8 @@ export type Setup = {
 export type SetupElements = {
   [x: string]: HTMLInputElement
 }
+
+export interface StatusButton extends HTMLButtonElement {
+  status: boolean[];
+  checkStatus(): void;
+}
