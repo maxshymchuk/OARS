@@ -1,7 +1,7 @@
 import { SetupElements, Setup, StatusButton } from './models';
 import { setupConfig } from './config';
 import { redrawFormula } from './formula';
-import { initApply, initCalculate, initResult } from './init';
+import { initApply, initCalculate, initResult, initLimitations } from './init';
 
 document.body.onload = () => {
   const setupParams: Setup = {
@@ -28,6 +28,7 @@ document.body.onload = () => {
   const buttonApply = document.getElementById('settings__button_apply') as HTMLButtonElement;
   const buttonCalculate = document.getElementById('controls__button_calculate') as StatusButton;
   const buttonResult = document.getElementById('controls__button_result') as HTMLButtonElement;
+  const buttonAddLimit = document.getElementById('limitations__button_add') as HTMLButtonElement;
 
   buttonCalculate.status = [false, false, true];
   buttonCalculate.checkStatus = () => {
@@ -37,6 +38,7 @@ document.body.onload = () => {
   buttonApply.addEventListener('click', () => initApply(setupParamsElems));
   buttonCalculate.addEventListener('click', () => initCalculate(setupParamsElems));
   buttonResult.addEventListener('click', () => initResult());
+  buttonAddLimit.addEventListener('click', () => initLimitations());
 
   const expressions: NodeList = document.querySelectorAll('input[name="expression"]');
   expressions.forEach(exp => {

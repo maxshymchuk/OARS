@@ -14,6 +14,7 @@ export function evaluate(func: string, params: X[]): number {
   for (let i = 0; i < params.length; i++) {
     obj[`x${i + 1}`] = params[i].value;
   }
+  // console.log(obj)
   return math.evaluate(func, obj);
 }
 
@@ -30,8 +31,4 @@ export function scrollToPos(pos: number): void {
     top: pos,
     behavior: 'smooth'
   });
-}
-
-export function check() {
-
 }

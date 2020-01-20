@@ -11,6 +11,6 @@ export const setupConfig: Setup = {
 export const setupValidation = {
   n: (x: number) => (x ^ 0) && (x > 0),
   m: (x: number) => (x ^ 0) && (x > 0),
-  h: (x: number) => (x > 0) && (x <= 1),
-  hmin: (x: number) => (x > 0) && (x <= 1)
+  h: (x: number) => (x > 0),
+  hmin: (x: number) => (x > 0)
 }

@@ -7,7 +7,7 @@ export function redrawFormula(element: HTMLInputElement) {
   const target = element.parentNode.querySelector('.formula') as HTMLElement;
   try {
     const formula: string = parse(element.value);
-    if (!element.value) throw 'Введите функцию';
+    if (!element.value) throw 'Введите выражение';
     katex.render(formula, target, {
       output: 'html',
       displayMode: true,
