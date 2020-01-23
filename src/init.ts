@@ -1,8 +1,9 @@
 import { X, SetupElements, StatusButton } from "./models";
-import { randInt, scrollToPos } from "./functions";
-import { optimize } from "./calc";
+import { randInt, scrollToPos, evaluate } from "./functions";
 import { Modal } from "./Modal";
 import { setupValidation } from "./config";
+
+import Worker from './worker';
 
 function validate(params: SetupElements): boolean {
   let result: boolean = true;
@@ -119,25 +120,34 @@ export function initCalculate(setupParamsElems: SetupElements) {
     })
   }
   try {
-    const preloader = document.getElementById('preloader');
-    preloader.classList.add('visible');
-    const result: X[] = optimize({
+    evaluate(targetFunction, x);
+  } catch (error) {
+    const modal = new Modal('template__alert');
+    modal.alert({title: 'Ошибка!', content: error});
+    return;
+  }
+  const preloader = document.getElementById('preloader');
+  preloader.classList.add('visible');
+  const worker = new Worker();
+  worker.postMessage({
+    params: {
       n: +setupParamsElems.n.value,
       m: +setupParamsElems.m.value,
       h: +setupParamsElems.h.value,
       hmin: +setupParamsElems.hmin.value,
       targetFunction: targetFunction
-    }, x);
-    preloader.classList.remove('visible');
+    }, 
+    values: x
+  });
+  worker.addEventListener("message", (event: any) => {
+    const result: X[] = event.data;
     let list: string = '';
     for (let record of result) {
       list += `<li>${record.value}</li>`
     }
     resultListElem.innerHTML = `<ol>${list}</ol>`;
-  } catch (error) {
-    const modal = new Modal('template__alert');
-    modal.alert({title: 'Ошибка!', content: error});
-  }
+    preloader.classList.remove('visible');
+  });
 }
 
 export function initResult() {

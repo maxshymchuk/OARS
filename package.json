@@ -1,36 +1,29 @@
 {
-  "name": "OARS",
+  "name": "RSOA",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/build.js",
+  "main": "app.js",
   "scripts": {
-    "watch": "webpack --watch",
-    "start": "webpack-dev-server --open",
-    "build": "webpack",
-    "sass": "sass styles/sass/style.scss:styles/style.css --no-source-map --watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/maxshymchuk/OARS.git"
+    "webpack": "npx webpack",
+    "sass": "sass styles/sass/style.scss:styles/style.css --no-source-map",
+    "electron": "electron app.js",
+    "prepare": "npm run sass && npm run webpack",
+    "start": "npm run webpack && npm run electron",
+    "wsass": "sass styles/sass/style.scss:styles/style.css --no-source-map --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/maxshymchuk/OARS/issues"
-  },
-  "homepage": "https://github.com/maxshymchuk/OARS#readme",
   "devDependencies": {
     "@types/katex": "^0.11.0",
     "@types/mathjs": "^6.0.2",
-    "@types/webpack": "^4.41.0",
-    "@types/webpack-dev-server": "^3.9.0",
+    "electron": "^7.1.9",
     "sass": "^1.24.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
-    "webpack": "^4.41.4",
+    "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.1"
+    "worker-loader": "^2.0.0"
   },
   "dependencies": {
     "katex": "^0.11.1",

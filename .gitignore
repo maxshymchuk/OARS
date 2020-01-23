@@ -1,4 +1,6 @@
 .editorconfig
+dist/
+styles/style.css
 
 # Logs
 logs

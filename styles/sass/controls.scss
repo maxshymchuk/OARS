@@ -21,7 +21,8 @@
 
     .controls__button_calculate {
       background-color: $accent_color;
-      &:disabled {
+      &:disabled,
+      &:disabled:hover {
         cursor: inherit;
         background-color: $accent_disabled_color;
       }

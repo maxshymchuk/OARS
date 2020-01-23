@@ -43,7 +43,7 @@ document.body.onload = () => {
   const expressions: NodeList = document.querySelectorAll('input[name="expression"]');
   expressions.forEach(exp => {
     ['keyup','focus'].forEach(event =>
-      exp.addEventListener(event, (e) => redrawFormula((e.target as HTMLInputElement)))
+      exp.addEventListener(event, (e: any) => redrawFormula((e.target as HTMLInputElement)))
     );
   })
 

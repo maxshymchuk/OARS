@@ -2,17 +2,19 @@
 
 .result {
   @include container;
-  margin-bottom: 50vh;
+  margin-bottom: $controls_height + $item_gap;
 
   .result__list {
     ol {
       list-style-type: none;
       padding: 0;
       counter-reset: section;
-
-      li:before {
-        counter-increment: section;
-        content: "x"counter(section)" = ";
+      li {
+        user-select: text;
+        &:before {
+          counter-increment: section;
+          content: "x"counter(section)" = ";
+        }
       }
     }
   }
