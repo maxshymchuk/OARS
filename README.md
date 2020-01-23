@@ -7,7 +7,7 @@
 Наиболее простой алгоритм случайного поиска для случая
 минимизации целевой функции F задается итеративным выражением:
 
-<center><a href="https://www.codecogs.com/eqnedit.php?latex=x_i^{(k&plus;1)}=x_i^{(k)}&plus;\left\{\begin{matrix}&space;hS_ir_i&space;\leftarrow&space;F[x_i^{(k)}&plus;hS_ir_i]\leq&space;F[x_i^{(k)}]&space;\\&space;0&space;\leftarrow&space;F[x_i^{(k)}&plus;hS_ir_i]&space;>&space;F[x_i^{(k)}]&space;\end{matrix}\right." target="_blank"><img src="https://latex.codecogs.com/svg.latex?x_i^{(k&plus;1)}=x_i^{(k)}&plus;\left\{\begin{matrix}&space;hS_ir_i&space;\leftarrow&space;F[x_i^{(k)}&plus;hS_ir_i]\leq&space;F[x_i^{(k)}]&space;\\&space;0&space;\leftarrow&space;F[x_i^{(k)}&plus;hS_ir_i]&space;>&space;F[x_i^{(k)}]&space;\end{matrix}\right." title="x_i^{(k+1)}=x_i^{(k)}+\left\{\begin{matrix} hS_ir_i \leftarrow F[x_i^{(k)}+hS_ir_i]\leq F[x_i^{(k)}] \\ 0 \leftarrow F[x_i^{(k)}+hS_ir_i] > F[x_i^{(k)}] \end{matrix}\right." /></a></center>
+<p align="center"><a href="https://www.codecogs.com/eqnedit.php?latex=x_i^{(k&plus;1)}=x_i^{(k)}&plus;\left\{\begin{matrix}&space;hS_ir_i&space;\leftarrow&space;F[x_i^{(k)}&plus;hS_ir_i]\leq&space;F[x_i^{(k)}]&space;\\&space;0&space;\leftarrow&space;F[x_i^{(k)}&plus;hS_ir_i]&space;>&space;F[x_i^{(k)}]&space;\end{matrix}\right." target="_blank"><img src="https://latex.codecogs.com/svg.latex?x_i^{(k&plus;1)}=x_i^{(k)}&plus;\left\{\begin{matrix}&space;hS_ir_i&space;\leftarrow&space;F[x_i^{(k)}&plus;hS_ir_i]\leq&space;F[x_i^{(k)}]&space;\\&space;0&space;\leftarrow&space;F[x_i^{(k)}&plus;hS_ir_i]&space;>&space;F[x_i^{(k)}]&space;\end{matrix}\right." title="x_i^{(k+1)}=x_i^{(k)}+\left\{\begin{matrix} hS_ir_i \leftarrow F[x_i^{(k)}+hS_ir_i]\leq F[x_i^{(k)}] \\ 0 \leftarrow F[x_i^{(k)}+hS_ir_i] > F[x_i^{(k)}] \end{matrix}\right." /></a></p>
 
 - <a href="https://www.codecogs.com/eqnedit.php?latex=x_i^{(k&plus;1)}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?k" title="x_i^{(k+1)}" /></a> – номер итерации (приближения к оптимуму)
 - <a href="https://www.codecogs.com/eqnedit.php?latex=x_i^{(k&plus;1)}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?x_i^{(k)}" title="x_i^{(k)}" /></a> – значение i-го оптимизируемого параметра в k-й итерации
@@ -18,15 +18,13 @@
 
 Шкальные коэффициенты <a href="https://www.codecogs.com/eqnedit.php?latex=x_i^{(k&plus;1)}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?S_i" title="S_i" /></a> определяют по:
 
-<center><a href="https://www.codecogs.com/eqnedit.php?latex=S_i=\frac{x_{imax}-x_{imin}}{C_i}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?S_i=\frac{x_{imax}-x_{imin}}{C_i}" title="S_i=\frac{x_{imax}-x_{imin}}{C_i}" /></a></center>
+<p align="center"><a href="https://www.codecogs.com/eqnedit.php?latex=S_i=\frac{x_{imax}-x_{imin}}{C_i}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?S_i=\frac{x_{imax}-x_{imin}}{C_i}" title="S_i=\frac{x_{imax}-x_{imin}}{C_i}" /></a></p>
 
 - <a href="https://www.codecogs.com/eqnedit.php?latex=x_i^{(k&plus;1)}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?C_i" title="C_i" /></a> – константы в диапазоне (5...30)
 
 ### Установка и настройка проекта
 
-1. Склонируйте репозиторий командой
-
-`git clone https://github.com/maxshymchuk/RSOA.git`
+1. Склонируйте репозиторий командой `git clone https://github.com/maxshymchuk/RSOA.git`
 
 2. В корневой директории проекта установите все зависимости `npm i` (возможно вам нужно будет установить NodeJS, перейдите на [сайт](https://nodejs.org/) для загрузки), установите `npm i npx -g` и выполните команду `npm run prepare`
 
