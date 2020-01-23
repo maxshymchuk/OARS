@@ -1,27 +1,25 @@
 const path = require('path');
 
 module.exports = {
-  mode: "development",
+  mode: 'development',
   entry: './src/script.ts',
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 8080
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, './dist')
+  },
+  resolve: {
+    extensions: ['.webpack.js', '.web.js', '.ts', '.js']
   },
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
+        test: /\.worker\.ts$/,
+        loader: 'worker-loader',
+      },
+      { 
+        test: /\.ts$/, 
+        loader: 'ts-loader' 
       }
-    ],
-  },
-  resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ],
-  },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
-};
+    ]
+  }
+}

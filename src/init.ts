@@ -1,8 +1,9 @@
 import { X, SetupElements, StatusButton } from "./models";
-import { randInt, scrollToPos } from "./functions";
-import { optimize } from "./calc";
+import { randInt, scrollToPos, evaluate } from "./functions";
 import { Modal } from "./Modal";
 import { setupValidation } from "./config";
+
+import Worker from './worker';
 
 function validate(params: SetupElements): boolean {
   let result: boolean = true;
@@ -17,7 +18,9 @@ function validate(params: SetupElements): boolean {
   return result;
 }
 
-function checkX(target: HTMLInputElement, min: number, max: number): boolean {
+function checkX(target: HTMLInputElement, minElem: HTMLInputElement, maxElem: HTMLInputElement): boolean {
+  const min: number = +(!minElem.value ? -Infinity : minElem.value);
+  const max: number = +(!maxElem.value ? Infinity : maxElem.value);
   if (+target.value < min || +target.value > max) {
     target.classList.add('error');
     return false;
@@ -27,8 +30,10 @@ function checkX(target: HTMLInputElement, min: number, max: number): boolean {
   }
 }
 
-function checkMin(target: HTMLInputElement, max: number): boolean {
-  if (+target.value > max) {
+function checkMin(target: HTMLInputElement, maxElem: HTMLInputElement): boolean {
+  const max: number = +(!maxElem.value ? Infinity : maxElem.value);
+  const value = !target.value ? -Infinity : +target.value;
+  if (value > max) {
     target.classList.add('error');
     return false;
   } else {
@@ -37,8 +42,10 @@ function checkMin(target: HTMLInputElement, max: number): boolean {
   }
 }
 
-function checkMax(target: HTMLInputElement, min: number): boolean {
-  if (+target.value < min) {
+function checkMax(target: HTMLInputElement, minElem: HTMLInputElement): boolean {
+  const min: number = !minElem.value ? -Infinity : +minElem.value;
+  const value = !target.value ? Infinity : +target.value;
+  if (value < min) {
     target.classList.add('error');
     return false;
   } else {
@@ -49,9 +56,9 @@ function checkMax(target: HTMLInputElement, min: number): boolean {
 
 function check(x: HTMLInputElement, min: HTMLInputElement, max: HTMLInputElement) {
   const buttonCalculate = document.getElementById('controls__button_calculate') as StatusButton;
-  const isCheckX: boolean = checkX(x, +min.value, +max.value);
-  const isCheckMin: boolean = checkMin(min, +max.value);
-  const isCheckMax: boolean = checkMax(max, +min.value);
+  const isCheckX: boolean = checkX(x, min, max);
+  const isCheckMin: boolean = checkMin(min, max);
+  const isCheckMax: boolean = checkMax(max, min);
   buttonCalculate.status[2] = (isCheckX && isCheckMin && isCheckMax);
   buttonCalculate.checkStatus();
 }
@@ -107,32 +114,56 @@ export function initCalculate(setupParamsElems: SetupElements) {
   for (let i = 0; i < +setupParamsElems.n.value; i++) {
     x.push({
       value: +inputsX[i].value,
-      min: +inputsXmin[i].value,
-      max: +inputsXmax[i].value,
+      min: +(!inputsXmin[i].value ? -Infinity : inputsXmin[i].value),
+      max: +(!inputsXmax[i].value ? Infinity : inputsXmax[i].value),
       const: randInt(5, 30)
     })
   }
   try {
-    const result = optimize({
+    evaluate(targetFunction, x);
+  } catch (error) {
+    const modal = new Modal('template__alert');
+    modal.alert({title: 'Ошибка!', content: error});
+    return;
+  }
+  const preloader = document.getElementById('preloader');
+  preloader.classList.add('visible');
+  const worker = new Worker();
+  worker.postMessage({
+    params: {
       n: +setupParamsElems.n.value,
       m: +setupParamsElems.m.value,
       h: +setupParamsElems.h.value,
       hmin: +setupParamsElems.hmin.value,
       targetFunction: targetFunction
-    }, x);
+    }, 
+    values: x
+  });
+  worker.addEventListener("message", (event: any) => {
+    const result: X[] = event.data;
     let list: string = '';
     for (let record of result) {
       list += `<li>${record.value}</li>`
     }
     resultListElem.innerHTML = `<ol>${list}</ol>`;
-  } catch (error) {
-    const modal = new Modal('template__alert');
-    modal.alert({title: 'Ошибка!', content: error});
-  }
+    preloader.classList.remove('visible');
+  });
 }
 
 export function initResult() {
   const resultListElem = document.getElementById('result__list');
   const scrollPos: number = resultListElem.getBoundingClientRect().top + window.scrollY;
   scrollToPos(scrollPos);
+}
+
+export function initLimitations() {
+  const templateLineItem = document.getElementById('template__limitations__list_item') as HTMLTemplateElement;
+  const limitationsList = document.querySelector('.limitations .limitations__list');
+
+  console.log(limitationsList.childNodes.length)
+
+  const clone: Node = templateLineItem.content.cloneNode(true);
+  const lineItem = (clone as Element).querySelector('.list_item');
+
+  limitationsList.appendChild(lineItem);
 }

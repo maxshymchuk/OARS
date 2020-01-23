@@ -20,11 +20,16 @@
       flex-direction: column;
       margin: 0 $item_gap / 2;
 
-      .list {
+      .limitations__list {
         border-top: 1px solid #000;
+
+        .list_item {
+          display: flex;
+          margin-top: $item_gap / 2;
+        }
       }
 
-      .button_add {
+      .limitations__button_add {
         width: 100%;
         margin: $item_gap / 2 auto;
       }

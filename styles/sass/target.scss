@@ -12,54 +12,5 @@
       flex-shrink: 0;
       margin-right: $item-gap / 2;
     }
-
-    .input_group {
-      @include list-item-input;
-      display: flex;
-      position: relative;
-
-      input {
-        @include list-item-input;
-        &.error {
-          background-color: $input_error_background_color;
-        }
-        &:focus ~ .formula {
-          display: block;
-        }
-      }
-
-      .formula {
-        position: absolute;
-        bottom: $item_height + $item_gap / 2;
-        display: none;
-        left: 0;
-        min-width: 200px;
-        max-width: 100%;
-        box-sizing: border-box;
-        box-shadow: 0 4px 10px $box_shadow_color;
-        text-align: center;
-        line-height: 1.2;
-        padding: 0;
-
-        & > * {
-          padding: 1em $item_gap / 2;
-        }
-
-        .katex-display {
-          overflow: hidden;
-        }
-
-        &:before {
-          position: absolute;
-          bottom: -5px;
-          left: $item_gap / 2;
-          content: "";
-          width: 10px;
-          height: 10px;
-          transform: rotate(45deg);
-          background-color: $card_color;
-        }
-      }
-    }
   }
 }

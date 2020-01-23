@@ -137,49 +137,6 @@
   flex-shrink: 0;
   margin-right: 10px;
 }
-.target .target__label_function .input_group {
-  flex: 1;
-  display: flex;
-  position: relative;
-}
-.target .target__label_function .input_group input {
-  flex: 1;
-}
-.target .target__label_function .input_group input.error {
-  background-color: #ff6d6d;
-}
-.target .target__label_function .input_group input:focus ~ .formula {
-  display: block;
-}
-.target .target__label_function .input_group .formula {
-  position: absolute;
-  bottom: 35px;
-  display: none;
-  left: 0;
-  min-width: 200px;
-  max-width: 100%;
-  box-sizing: border-box;
-  box-shadow: 0 4px 10px #999999;
-  text-align: center;
-  line-height: 1.2;
-  padding: 0;
-}
-.target .target__label_function .input_group .formula > * {
-  padding: 1em 10px;
-}
-.target .target__label_function .input_group .formula .katex-display {
-  overflow: hidden;
-}
-.target .target__label_function .input_group .formula:before {
-  position: absolute;
-  bottom: -5px;
-  left: 10px;
-  content: "";
-  width: 10px;
-  height: 10px;
-  transform: rotate(45deg);
-  background-color: #FFFFFF;
-}
 
 .limitations {
   display: flex;
@@ -201,10 +158,14 @@
   flex-direction: column;
   margin: 0 10px;
 }
-.limitations .details .limitations_container .list {
+.limitations .details .limitations_container .limitations__list {
   border-top: 1px solid #000;
 }
-.limitations .details .limitations_container .button_add {
+.limitations .details .limitations_container .limitations__list .list_item {
+  display: flex;
+  margin-top: 10px;
+}
+.limitations .details .limitations_container .limitations__button_add {
   width: 100%;
   margin: 10px auto;
 }
@@ -213,7 +174,19 @@
   display: flex;
   flex-wrap: wrap;
   margin: 20px 0;
-  margin-bottom: 50vh;
+  margin-bottom: 70px;
+}
+.result .result__list ol {
+  list-style-type: none;
+  padding: 0;
+  counter-reset: section;
+}
+.result .result__list ol li {
+  user-select: text;
+}
+.result .result__list ol li:before {
+  counter-increment: section;
+  content: "x" counter(section) " = ";
 }
 
 .controls {
@@ -239,7 +212,7 @@
 .controls .controls__container .controls__button_calculate {
   background-color: #ffbb00;
 }
-.controls .controls__container .controls__button_calculate:disabled {
+.controls .controls__container .controls__button_calculate:disabled, .controls .controls__container .controls__button_calculate:disabled:hover {
   cursor: inherit;
   background-color: #ffe9a0;
 }
@@ -976,10 +949,11 @@ body {
 }
 body * {
   font-family: "ARIAL";
+  user-select: none;
 }
 
 header {
-  max-width: 980px;
+  max-width: 800px;
   text-align: center;
   font-size: 20px;
   margin: 0 auto;
@@ -987,7 +961,7 @@ header {
 }
 
 main {
-  max-width: 980px;
+  max-width: 800px;
   width: 90%;
   margin: 0 auto;
 }
@@ -1002,7 +976,7 @@ input[type=text],
 input[type=number] {
   border: none;
   line-height: 25px;
-  background-color: #DDDDDD;
+  background-color: #EEEEEE;
   border-radius: 4px;
   padding: 0 10px;
   box-shadow: inset 0 1px 2px 0 #999999;
@@ -1044,4 +1018,65 @@ button:hover {
 }
 .card:hover {
   box-shadow: 0 1px 10px #999999;
+}
+
+.preloader {
+  visibility: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: url("../assets/loader.gif") no-repeat center center rgba(255, 255, 255, 0.5);
+  z-index: 999;
+  opacity: 0;
+  transition: 300ms;
+}
+.preloader.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.input_group {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+.input_group input {
+  flex: 1;
+}
+.input_group input.error {
+  background-color: #ff6d6d;
+}
+.input_group input:focus ~ .formula {
+  display: block;
+}
+.input_group .formula {
+  position: absolute;
+  bottom: 35px;
+  display: none;
+  left: 0;
+  min-width: 200px;
+  max-width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 4px 10px #999999;
+  text-align: center;
+  line-height: 1.2;
+  padding: 0;
+}
+.input_group .formula > * {
+  padding: 1em 10px;
+}
+.input_group .formula .katex-display {
+  overflow: hidden;
+}
+.input_group .formula:before {
+  position: absolute;
+  bottom: -5px;
+  left: 10px;
+  content: "";
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  background-color: #FFFFFF;
 }

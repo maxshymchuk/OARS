@@ -6,9 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="shortcut icon" type="image/png" href="assets/favicon.ico"/>
   <link href="styles/style.css" rel="stylesheet">
-  <title>RSOA</title>
+  <title>Оптимизация методом случайного поиска</title>
 </head>
 <body>
+  <div class="preloader" id="preloader"></div>
+
   <template id="template__alert">
     <div class="modal__container">
       <div class="modal alert">
@@ -36,11 +38,11 @@
         </label>
         <label class="settings__label_parameter" for="settings__input_h">
           <span class="label">Начальный шаг</span>
-          <input type="number" name="settings__input_h" id="settings__input_h" placeholder="0 ... 1">
+          <input type="number" name="settings__input_h" id="settings__input_h" placeholder="0 ...">
         </label>
         <label class="settings__label_parameter" for="settings__input_hmin">
           <span class="label">Конечный шаг</span>
-          <input type="number" name="settings__input_hmin" id="settings__input_hmin" placeholder="0 ... 1">
+          <input type="number" name="settings__input_hmin" id="settings__input_hmin" placeholder="0 ...">
         </label>
         <button class="settings__button_apply" id="settings__button_apply">Применить</button>
       </div>
@@ -50,15 +52,15 @@
           Примените значения для ввода переменных
         </span>
         <div class="title">
-          <span>X</span>
-          <span>X min</span>
-          <span>X max</span>
+          <span>X<sup>0</sup></span>
+          <span>X<sup></sup><sub>min</sub></span>
+          <span>X<sup></sup><sub>max</sub></span>
         </div>
         <template id="template__table_line">
           <div class="table_line">
-            <input type="number" id="settings__input_x" placeholder="0">
-            <input type="number" id="settings__input_min" placeholder="0">
-            <input type="number" id="settings__input_max" placeholder="0">
+            <input type="number" id="settings__input_x" value="500" placeholder="0">
+            <input type="number" id="settings__input_min" value="0" placeholder="-infinity">
+            <input type="number" id="settings__input_max" value="1000" placeholder="+infinity">
           </div>
         </template>
         <div class="table" id="values_table"></div>
@@ -81,10 +83,26 @@
       <details class="details card">
         <summary class="title">Ограничения</summary>
         <div class="limitations_container">
-          <section class="list">
-            <div class="list_item"></div>
-          </section>
-          <button class="button_add">Добавить</button>
+          <template id="template__limitations__list_item">
+            <div class="list_item">
+              <div class="input_group">
+                <input type="text" id="list_item__input_expression" name="expression" placeholder="expression">
+                <div class="formula card"></div>
+              </div>
+              <select name="" id="">
+                <option selected>&gt;</option>
+                <option>&lt;</option>
+                <option>&gt;=</option>
+                <option>&lt;=</option>
+                <option>=</option>
+                <option>&lt;&gt;</option>
+              </select>
+              <input type="number" id="list_item__input_value" placeholder="0">
+              <button class="list_item__button_delete" id="list_item__button_delete">X</button>
+            </div>
+          </template>
+          <section class="limitations__list"></section>
+          <button class="limitations__button_add" id="limitations__button_add">Добавить</button>
         </div>
       </details>
     </section>
