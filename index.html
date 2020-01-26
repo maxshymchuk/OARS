@@ -48,22 +48,25 @@
       </div>
 
       <div class="settings__values card">
-        <span class="placeholder">
-          Примените значения для ввода переменных
-        </span>
-        <div class="title">
-          <span>X<sup>0</sup></span>
-          <span>X<sup></sup><sub>min</sub></span>
-          <span>X<sup></sup><sub>max</sub></span>
+        <div class="placeholder">
+          <span>Примените значения для ввода переменных</span>
         </div>
-        <template id="template__table_line">
-          <div class="table_line">
-            <input type="number" id="settings__input_x" value="500" placeholder="0">
-            <input type="number" id="settings__input_min" value="0" placeholder="-infinity">
-            <input type="number" id="settings__input_max" value="1000" placeholder="+infinity">
+        <div class="values">
+          <div class="title">
+            <span>X<sup>0</sup></span>
+            <span>X<sup></sup><sub>min</sub></span>
+            <span>X<sup></sup><sub>max</sub></span>
           </div>
-        </template>
-        <div class="table" id="values_table"></div>
+          <template id="template__table_line">
+            <div class="table_line">
+              <input type="number" id="settings__input_x" value="500" placeholder="0">
+              <input type="number" id="settings__input_min" value="0" placeholder="-infinity">
+              <input type="number" id="settings__input_max" value="1000" placeholder="+infinity">
+            </div>
+          </template>
+          <div class="table" id="values_table"></div>
+          <button class="settings__values__button">Проверить на ограничения</button>
+        </div>
       </div>
     </section>
 
@@ -86,18 +89,18 @@
           <template id="template__limitations__list_item">
             <div class="list_item">
               <div class="input_group">
-                <input type="text" id="list_item__input_expression" name="expression" placeholder="expression">
+                <input type="text" class="limitations__expression" name="expression" placeholder="expression">
                 <div class="formula card"></div>
               </div>
-              <select name="" id="">
-                <option selected>&gt;</option>
-                <option>&lt;</option>
-                <option>&gt;=</option>
-                <option>&lt;=</option>
-                <option>=</option>
-                <option>&lt;&gt;</option>
+              <select class="limitations__sign">
+                <option value="Greater" selected>&gt;</option>
+                <option value="Less">&lt;</option>
+                <option value="GreaterEqual">&gt;=</option>
+                <option value="LessEqual">&lt;=</option>
+                <option value="Equal">=</option>
+                <option value="Unequal">&lt;&gt;</option>
               </select>
-              <input type="number" id="list_item__input_value" placeholder="0">
+              <input class="limitations__result" type="number" id="list_item__input_value" placeholder="0">
               <button class="list_item__button_delete" id="list_item__button_delete">X</button>
             </div>
           </template>

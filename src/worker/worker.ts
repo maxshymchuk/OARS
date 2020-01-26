@@ -1,9 +1,10 @@
 import { X, Setup } from '../models';
-import { rand, evaluate, copy, isEqual } from '../functions';
+import { rand, evaluate, copy } from '../functions';
 
 type VarMessage = {
   params: Setup,
-  values: X[]
+  values: X[],
+  limits: string[]
 }
 
 const ctx: Worker = self as any;
@@ -14,8 +15,14 @@ ctx.addEventListener("message", (message: MessageEvent) => {
 
   const params = (message.data as VarMessage).params;
   const values = (message.data as VarMessage).values;
+  const limits = (message.data as VarMessage).limits;
 
-  let {n, m, h, hmin, targetFunction} = params;
+  const checkLimits = (x: X[]): boolean => {
+    return limits.map(i => !!evaluate(i, x))
+      .reduce((prev: boolean, curr: boolean) => prev && curr, true);
+  }
+
+  let {n, m, h, hmin, targetFunction: targetFunction} = params;
 
   const isStepOver = (): boolean => h <= hmin;
   const isAttemptsOver = (M: number): boolean => M === m;
@@ -47,9 +54,10 @@ ctx.addEventListener("message", (message: MessageEvent) => {
         }
       }
       if (L === n) {
-        M++; // 450+2*x1+1.5*x1^2+1.5*x2+1.2*x2^2+1.3*x3
+        M++; 
+        // 450+2*x1+1.5*x1^2+1.5*x2+1.2*x2^2+1.3*x3
         // 3+0.4x1+0.3x1^2+1.2x2+0.1x2^2
-      } else if (false){//(!isEqual(evaluate('x1+x2', x), 1000)) {
+      } else if (!checkLimits(x)) {
         M++;
       } else {
         const fnew: number = evaluate(targetFunction, x);

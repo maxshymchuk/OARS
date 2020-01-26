@@ -9,12 +9,6 @@ export function copy<T>(obj: T): T {
   return {...obj};
 }
 
-export function isEqual(a: number, b: number) {
-  const ERROR = 0.1;
-  const delta = Math.abs(a - b);
-  return (delta <= ERROR);
-}
-
 export function evaluate(func: string, params: X[]): number {
   let obj = {};
   for (let i = 0; i < params.length; i++) {

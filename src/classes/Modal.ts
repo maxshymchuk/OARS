@@ -1,5 +1,5 @@
 import { Animation, AnimeDir } from './Animation';
-import { ModalAlert } from './models';
+import { ModalAlert } from '../models';
 
 export class Modal {
   private currentContainer: HTMLElement;

@@ -6,7 +6,7 @@ function createWindow () {
   win = new BrowserWindow({
     width: 900,
     height: 600,
-    minWidth: 300,
+    minWidth: 450,
     minHeight: 400,
     backgroundColor: "#FFF",
     webPreferences: {
@@ -16,7 +16,7 @@ function createWindow () {
   })
   win.removeMenu();
   win.loadFile('index.html');
-  // win.webContents.openDevTools()
+  win.webContents.openDevTools()
   win.on('closed', () => {
     win = null
   });

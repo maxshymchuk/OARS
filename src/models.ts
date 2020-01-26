@@ -11,16 +11,27 @@ export type X = {
   const: number,
 }
 
+export enum Sign {
+  Greater = ' > ',
+  GreaterEqual = ' >= ',
+  Less = ' < ',
+  LessEqual = ' <= ',
+  Equal = ' == ',
+  Unequal = ' != '
+}
+
+export type Limit = {
+  func: string,
+  sign: Sign,
+  result: number
+}
+
 export type Setup = {
   n: number,
   m: number,
   h: number,
   hmin: number,
   targetFunction: string
-}
-
-export type SetupElements = {
-  [x: string]: HTMLInputElement
 }
 
 export interface StatusButton extends HTMLButtonElement {
