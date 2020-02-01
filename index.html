@@ -22,74 +22,61 @@
   </template>
 
   <header>
-    Оптимизация методом случайного поиска
+    <article class="title">
+      Практическое задание №7
+    </article>
   </header>
+
   <main>
 
     <section class="settings">
-      <div class="settings__setup card">
+      <div class="card">
+        <article class="title">
+          1. Установите начальные значения
+        </article>
         <label class="settings__label_parameter" for="settings__input_n">
           <span class="label">Число параметров</span>
-          <input type="number" name="settings__input_n" id="settings__input_n" placeholder="1, 2, 3, ...">
+          <input type="number" name="settings__input_n" id="settings__input_n" placeholder="Натуральное число">
         </label>
         <label class="settings__label_parameter" for="settings__input_m">
           <span class="label">Число попыток</span>
-          <input type="number" name="settings__input_m" id="settings__input_m" placeholder="1, 2, 3, ...">
+          <input type="number" name="settings__input_m" id="settings__input_m" placeholder="Натуральное число">
         </label>
         <label class="settings__label_parameter" for="settings__input_h">
           <span class="label">Начальный шаг</span>
-          <input type="number" name="settings__input_h" id="settings__input_h" placeholder="0 ...">
+          <input type="number" name="settings__input_h" id="settings__input_h" placeholder="Неотрицательное число">
         </label>
         <label class="settings__label_parameter" for="settings__input_hmin">
           <span class="label">Конечный шаг</span>
-          <input type="number" name="settings__input_hmin" id="settings__input_hmin" placeholder="0 ...">
+          <input type="number" name="settings__input_hmin" id="settings__input_hmin" placeholder="Неотрицательное число">
         </label>
-        <button class="settings__button_apply" id="settings__button_apply">Применить</button>
-      </div>
-
-      <div class="settings__values card">
-        <div class="placeholder">
-          <span>Примените значения для ввода переменных</span>
-        </div>
-        <div class="values">
-          <div class="title">
-            <span>X<sup>0</sup></span>
-            <span>X<sup></sup><sub>min</sub></span>
-            <span>X<sup></sup><sub>max</sub></span>
-          </div>
-          <template id="template__table_line">
-            <div class="table_line">
-              <input type="number" id="settings__input_x" value="500" placeholder="0">
-              <input type="number" id="settings__input_min" value="0" placeholder="-infinity">
-              <input type="number" id="settings__input_max" value="1000" placeholder="+infinity">
-            </div>
-          </template>
-          <div class="table" id="values_table"></div>
-          <button class="settings__values__button">Проверить на ограничения</button>
-        </div>
+        <button class="settings__button_apply checker" id="settings__button_apply">Проверить данные</button>
       </div>
     </section>
 
     <section class="target">
+      <div class="mask" id="target__mask"></div>
       <div class="card">
         <label class="target__label_function" for="target__input_function">
-          <span class="label">Введите целевую функцию</span>
+          <span class="label">2. Введите целевую функцию</span>
           <div class="input_group">
-            <input type="text" id="target__input_function" name="expression" placeholder="(1-x1)^2+(2-x2)^2+(3-x3)^2">
+            <input type="text" id="target__input_function" name="expression" placeholder="Выражение">
             <div class="formula card"></div>
           </div>
         </label>
+        <button class="target__button_check checker" id="target__button_check">Проверить функцию</button>
       </div>
     </section>
 
     <section class="limitations">
+      <div class="mask" id="limitations__mask"></div>
       <details class="details card">
-        <summary class="title">Ограничения</summary>
+        <summary class="title">3. Введите ограничения (необязательно)</summary>
         <div class="limitations_container">
           <template id="template__limitations__list_item">
             <div class="list_item">
               <div class="input_group">
-                <input type="text" class="limitations__expression" name="expression" placeholder="expression">
+                <input type="text" class="limitations__expression" name="expression" placeholder="Выражение">
                 <div class="formula card"></div>
               </div>
               <select class="limitations__sign">
@@ -100,17 +87,49 @@
                 <option value="Equal">=</option>
                 <option value="Unequal">&lt;&gt;</option>
               </select>
-              <input class="limitations__result" type="number" id="list_item__input_value" placeholder="0">
-              <button class="list_item__button_delete" id="list_item__button_delete">X</button>
+              <input class="limitations__result" type="number" placeholder="Число">
+              <button class="list_item__button_delete">X</button>
             </div>
           </template>
           <section class="limitations__list"></section>
           <button class="limitations__button_add" id="limitations__button_add">Добавить</button>
+          <button class="limitations__button_check checker" id="limitations__button_check">Проверить выражения</button>
         </div>
       </details>
     </section>
 
+    <section class="variables_list">
+      <div class="mask" id="variables_list__mask"></div>
+      <div class="card">
+        <article class="title">
+          4. Введите значения переменных
+        </article>
+        <div class="values">
+          <div class="title">
+            <span>X<sup>0</sup></span>
+            <span>X<sup></sup><sub>min</sub></span>
+            <span>X<sup></sup><sub>max</sub></span>
+          </div>
+          <template id="template__table_line">
+            <div class="table_line">
+              <input type="number" id="variables_list__input_x" placeholder="Число">
+              <input type="number" id="variables_list__input_min" value="0" placeholder="-infinity">
+              <input type="number" id="variables_list__input_max" value="100" placeholder="+infinity">
+            </div>
+          </template>
+          <div class="table" id="values_table"></div>
+          <button class="variables_list__values__button_check checker" id="variables_list__values__button_check">Проверить значения</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls">
+      <div class="mask" id="controls__mask"></div>
+      <button class="controls__button_calculate checker" id="controls__button_calculate">5. Рассчитать</button>
+    </section>
+
     <section class="result">
+      <div class="mask" id="result__mask"></div>
       <div class="card">
         <div class="title">
           Результаты
@@ -119,10 +138,13 @@
       </div>
     </section>
 
-    <section class="controls">
-      <section class="controls__container">
-        <button class="controls__button_result" id="controls__button_result">К результатам</button>
-        <button class="controls__button_calculate" id="controls__button_calculate" disabled>Рассчитать</button>
+    <section class="instruction">
+      <button class="instruction__button_showhide checker" id="instruction__button_showhide">
+        <div class="arrows"></div>
+      </button>
+      <section class="instruction__container" id="instruction">
+        <p class="title">Инструкция</p>
+        <section class="content"></section>
       </section>
     </section>
 

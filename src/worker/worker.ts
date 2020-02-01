@@ -1,5 +1,13 @@
 import { X, Setup } from '../models';
-import { rand, evaluate, copy } from '../functions';
+import math = require('mathjs');
+
+function evaluate(func: string, params: X[]): number {
+  let obj = {};
+  for (let i = 0; i < params.length; i++) {
+    obj[`x${i + 1}`] = params[i].value;
+  }
+  return math.evaluate(func, obj);
+}
 
 type VarMessage = {
   params: Setup,
@@ -7,12 +15,17 @@ type VarMessage = {
   limits: string[]
 }
 
+function copy<T>(obj: T): T {
+  return {...obj};
+}
+
+function rand(a: number, b: number): number {
+  return Math.random() * (b - a) + a;
+}
+
 const ctx: Worker = self as any;
  
 ctx.addEventListener("message", (message: MessageEvent) => {
-  console.log('To worker');
-  console.log(message.data);
-
   const params = (message.data as VarMessage).params;
   const values = (message.data as VarMessage).values;
   const limits = (message.data as VarMessage).limits;
@@ -38,7 +51,7 @@ ctx.addEventListener("message", (message: MessageEvent) => {
       for (let i = 0; i < n; i++) {
         const r: number = rand(-1, 1);
         const S: number = (x[i].max - x[i].min) / x[i].const;
-        const delta: number = h * (S ? S : 1) * r;
+        const delta: number = h * S * r;
         let temp: X[] = x.map((i: X) => copy<X>(i));
         temp[i].value += delta;
         const fnew: number = evaluate(targetFunction, temp);
@@ -57,6 +70,7 @@ ctx.addEventListener("message", (message: MessageEvent) => {
         M++; 
         // 450+2*x1+1.5*x1^2+1.5*x2+1.2*x2^2+1.3*x3
         // 3+0.4x1+0.3x1^2+1.2x2+0.1x2^2
+        // (1-x1)^2+(2-x2)^2+(3-x3)^2
       } else if (!checkLimits(x)) {
         M++;
       } else {

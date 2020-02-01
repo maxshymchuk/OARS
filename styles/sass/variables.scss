@@ -1,7 +1,13 @@
 $accent_color: rgb(255, 187, 0);
 $accent_hover_color: rgb(255, 174, 0);
 $accent_disabled_color: rgb(255, 233, 160);
+
+$checked_color: rgb(38, 161, 0);
+$checked_hover_color: rgb(32, 136, 0);
+
 $card_color: #FFFFFF;
+
+$mask_opacity: 0.75;
 
 $document_max_width: 800px;
 
@@ -14,14 +20,19 @@ $item_gap: 20px;
 $item_height: 25px;
 $item_line_height: 25px;
 
+$instruction_max_height: 25vh;
+$instruction_warning_color: rgb(255, 109, 109);
+$instruction_advice_color: rgb(45, 192, 0);
+
 $input_background_color: #EEEEEE;
 $input_error_background_color: rgb(255, 109, 109);
 
 $button_color: #DDDDDD;
 $button_hover_color: #CCCCCC;
 
-$controls_height: 2 * $item_height;
-
 $modal_container_background_color: rgba(255, 255, 255, 0.5);
 
 $transition_time: 300ms;
+$appear_time: 2s;
+
+$maxLayer: 999;

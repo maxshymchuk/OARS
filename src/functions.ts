@@ -1,33 +1,50 @@
 import { X } from './models';
 import * as math from 'mathjs';
+import { instructions, inputs } from './config';
 
 export function parse(value: string) {
   return math.parse(value).toTex({parenthesis: 'auto', implicit: 'hide'});
 }
 
-export function copy<T>(obj: T): T {
-  return {...obj};
-}
-
-export function evaluate(func: string, params: X[]): number {
-  let obj = {};
-  for (let i = 0; i < params.length; i++) {
-    obj[`x${i + 1}`] = params[i].value;
+export function test(func: string) {
+  const varNumber: number = +inputs.n.value;
+  const x: {[s: string]: number} = {};
+  for (let i = 0; i < varNumber; i++) {
+    x[`x${i + 1}`] = 1;
   }
-  return math.evaluate(func, obj);
+  return math.evaluate(func, x);
 }
 
-export function rand(a: number, b: number): number {
-  return Math.random() * (b - a) + a;
-}
-
-export function randInt(a: number, b: number): number {
-  return Math.round(Math.random() * (b - a) + a);
-}
-
-export function scrollToPos(pos: number): void {
-  window.scroll({
-    top: pos,
-    behavior: 'smooth'
-  });
+export const step = {
+  currentStep: 1,
+  show() {
+    const INITIAL_STEP = 2;
+    const instruction = document.getElementById('instruction') as HTMLElement;
+    const title = instruction.querySelector('.title');
+    const content = instruction.querySelector('.content');
+    const stepBlocks = {
+      step2: document.getElementById('target__mask'),
+      step3: document.getElementById('limitations__mask'),
+      step4: document.getElementById('variables_list__mask'),
+      step5: document.getElementById('controls__mask'),
+      step6: document.getElementById('result__mask')
+    }
+    for (let i = INITIAL_STEP; i < Object.keys(stepBlocks).length + INITIAL_STEP; i++) {
+      if (i > this.currentStep) {
+        stepBlocks[`step${i}`].classList.add('mask');
+      } else {
+        stepBlocks[`step${i}`].classList.remove('mask');
+      }
+    }
+    title.innerHTML = instructions[`step${step.currentStep}`].title;
+    content.innerHTML = instructions[`step${step.currentStep}`].content;
+  },
+  set(step?: number) {
+    step ? this.currentStep = step : this.currentStep++;
+    this.show();
+  },
+  reset(step?: number) {
+    this.currentStep = step ?? 1;
+    this.show();
+  }  
 }

@@ -1,16 +1,21 @@
 import { inputs, configuration } from "./config";
-import { randInt } from "./functions";
-import { X, Sign } from "./models";
-import { Modal } from "./classes/Modal";
+import { X, Sign, Steps } from "./models";
 
 import Worker from './worker';
+import { step } from "./functions";
+
+function randInt(a: number, b: number): number {
+  return Math.round(Math.random() * (b - a) + a);
+}
+
+export let worker: Worker;
 
 export function calc() {
   const x: X[] = [];
   const inputsX = {
-    values: [...document.querySelectorAll('input[id*=settings__input_x]')] as HTMLInputElement[],
-    mins: [...document.querySelectorAll('input[id*=settings__input_min]')] as HTMLInputElement[],
-    maxs: [...document.querySelectorAll('input[id*=settings__input_max]')] as HTMLInputElement[]
+    values: [...document.querySelectorAll('input[id*=variables_list__input_x]')] as HTMLInputElement[],
+    mins: [...document.querySelectorAll('input[id*=variables_list__input_min]')] as HTMLInputElement[],
+    maxs: [...document.querySelectorAll('input[id*=variables_list__input_max]')] as HTMLInputElement[]
   }
   const limitItems = [...document.querySelectorAll('.limitations_container .list_item')] as HTMLElement[];
   const inputsLimit = {
@@ -43,16 +48,10 @@ export function calc() {
     })
   }
 
-  // try {
-  //   evaluate(inputs.targetFunction.value, x);
-  // } catch (error) {
-  //   const modal = new Modal('template__alert');
-  //   modal.alert({title: 'Ошибка!', content: error});
-  //   return;
-  // }
   const preloader = document.getElementById('preloader');
   preloader.classList.add('visible');
-  const worker = new Worker();
+
+  worker = new Worker();
   worker.postMessage({
     params: {
       n: +inputs.n.value,
@@ -71,6 +70,9 @@ export function calc() {
       list += `<li>${record.value}</li>`
     }
     document.getElementById('result__list').innerHTML = `<ol>${list}</ol>`;
+
     preloader.classList.remove('visible');
+
+    step.set(Steps.Results);
   });
 }

@@ -1,8 +1,11 @@
-export type ModalAlert = {
-  title: string;
-  content?: string;
-  closeText?: string;
-};
+export enum Steps {
+  Settings = 1,
+  Target = 2,
+  Limits = 3,
+  Vars = 4,
+  Calc = 5,
+  Results = 6
+}
 
 export type X = {
   value: number,
@@ -32,9 +35,4 @@ export type Setup = {
   h: number,
   hmin: number,
   targetFunction: string
-}
-
-export interface StatusButton extends HTMLButtonElement {
-  status: boolean[];
-  checkStatus(): void;
 }

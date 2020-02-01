@@ -18,11 +18,20 @@
     .limitations_container {
       margin: 0 $item_gap / 2;
 
+      .limitations__button_add {
+        margin: 0;
+      }
+
+      .limitations__button_check {
+        margin: $item_gap / 2 0;
+      }
+
       .limitations__list {
         .list_item {
           display: grid;
           grid-gap: 10px;
-          grid-template-columns: auto 40px auto 25px;
+          grid-template-columns: auto 40px auto $item_line_height;
+          grid-template-rows: $item_line_height;
           margin-bottom: $item_gap / 2;
           .input_group {
             .limitations__expression {
@@ -39,13 +48,9 @@
           }
           .list_item__button_delete {
             width: 25px;
+            margin: 0;
           }
         }
-      }
-
-      .limitations__button_add {
-        width: 100%;
-        margin-bottom: $item_gap / 2;
       }
     }
   }

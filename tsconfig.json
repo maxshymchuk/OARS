@@ -3,7 +3,6 @@
     "outDir": "./dist/",
     "module": "commonjs",
     "target": "ES6",
-    // "lib": ["dom", "dom.iterable", "webworker", "es6", "scripthost"],
     "sourceMap": false,
     "inlineSourceMap": true,
     "forceConsistentCasingInFileNames": true,

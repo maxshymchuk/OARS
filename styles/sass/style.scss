@@ -1,15 +1,17 @@
 @import './variables.scss';
-@import './animations.scss';
 @import './settings.scss';
+@import './variables_list.scss';
 @import './target.scss';
 @import './limitations.scss';
 @import './result.scss';
 @import './controls.scss';
-@import './modal.scss';
+@import './instruction.scss';
 @import './katex.scss';
 
 body {
   margin: 0;
+  opacity: 0;
+  transition: opacity $appear_time;
 
   * {
     font-family: 'ARIAL';
@@ -17,18 +19,28 @@ body {
   }
 }
 
-header {
-  max-width: $document_max_width;
+header .title {
   text-align: center;
   font-size: 20px;
-  margin: 0 auto;
-  padding: 20px;
+  padding-top: 20px;
 }
-
+  
 main {
   max-width: $document_max_width;
   width: 90%;
   margin: 0 auto;
+  margin-bottom: 50vh;
+}
+
+.mask {
+  background-color: $card_color;
+  opacity: $mask_opacity;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -39,6 +51,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 input[type=text],
 input[type=number] {
+  width: 100%;
   border: none;
   line-height: $item_line_height;
   background-color: $input_background_color;
@@ -68,11 +81,20 @@ button {
   border: none;
   cursor: pointer;
   transition: $transition_time;
+  width: 100%;
+  margin-top: $item_gap / 2;
   &:focus {
     outline: none;
   }
   &:hover {
     background-color: $button_hover_color;
+  }
+  &.checker {
+    background-color: $accent_color;
+
+    &:hover {
+      background-color: $accent_hover_color;
+    }
   }
 }
 
@@ -96,7 +118,7 @@ button {
   right: 0;
   bottom: 0;
   background: url("../assets/loader.gif") no-repeat center center rgba(255, 255, 255, 0.5);
-  z-index: 999;
+  z-index: $maxLayer + 1;
   opacity: 0;
   transition: $transition_time;
   &.visible {
@@ -106,12 +128,12 @@ button {
 }
 
 .input_group {
-  @include list-item-input;
+  flex: 1;
   display: flex;
   position: relative;
 
   input {
-    @include list-item-input;
+    flex: 1;
     &:focus ~ .formula {
       display: block;
     }
@@ -129,14 +151,10 @@ button {
     line-height: 1.2;
     padding: 0;
 
-    .empty,
-    .katex-display {
+    .empty {
       margin: 1em $item_gap / 2;
       overflow: hidden;
-      .katex-html {
-        float: right;
-        white-space: nowrap;
-      }
+      text-align: center;
     }
 
     &:before {
