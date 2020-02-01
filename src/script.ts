@@ -7,7 +7,6 @@ import { step } from './functions';
 import { initValidation } from './validation';
 
 document.body.onload = () => {
-  console.log(localStorage);
   // localStorage.clear();
   const setupParams: Setup = {
     n: +(localStorage.getItem('oars_n') ?? settingsDefault.n),
@@ -56,7 +55,6 @@ document.body.onload = () => {
   );
   
   initValidation();
-  document.body.style.opacity = '1';
 
   const preloader = document.getElementById('preloader');
   preloader.addEventListener('dblclick', () => {
@@ -79,4 +77,6 @@ document.body.onload = () => {
   })
 
   step.reset();
+
+  document.body.style.opacity = '1';
 }

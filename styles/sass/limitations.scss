@@ -49,6 +49,10 @@
           .list_item__button_delete {
             width: 25px;
             margin: 0;
+            background-image: url("../assets/cross.svg");
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 50%;
           }
         }
       }

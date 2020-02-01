@@ -1,3 +1,3 @@
-import worker = require('worker-loader?publicPath=dist/&name=worker.js!./worker');
+import worker = require('worker-loader?name=worker.js!./worker');
 
 export default worker;

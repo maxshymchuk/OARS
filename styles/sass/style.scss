@@ -10,9 +10,8 @@
 
 body {
   margin: 0;
-  opacity: 0;
   transition: opacity $appear_time;
-
+  
   * {
     font-family: 'ARIAL';
     user-select: none;
@@ -83,6 +82,7 @@ button {
   transition: $transition_time;
   width: 100%;
   margin-top: $item_gap / 2;
+  box-shadow: 0 1px 2px 0 $box_shadow_color;
   &:focus {
     outline: none;
   }
@@ -91,6 +91,7 @@ button {
   }
   &.checker {
     background-color: $accent_color;
+    box-shadow: 0 1px 2px 0 $box_shadow_accent_color;
 
     &:hover {
       background-color: $accent_hover_color;
@@ -117,13 +118,21 @@ button {
   top: 0;
   right: 0;
   bottom: 0;
-  background: url("../assets/loader.gif") no-repeat center center rgba(255, 255, 255, 0.5);
+  background: url("../assets/loader.gif") no-repeat center center rgba(255, 255, 255, 0.75);
   z-index: $maxLayer + 1;
   opacity: 0;
   transition: $transition_time;
   &.visible {
     visibility: visible;
     opacity: 1;
+  }
+  span {
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20vh;
+    color: rgba(0, 0, 0, 0.5);
   }
 }
 

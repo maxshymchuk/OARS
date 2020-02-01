@@ -8,8 +8,10 @@
   <link href="styles/style.css" rel="stylesheet">
   <title>Оптимизация методом случайного поиска</title>
 </head>
-<body>
-  <div class="preloader" id="preloader"></div>
+<body style="opacity: 0">
+  <div class="preloader" id="preloader">
+    <span>Дважды щелкните для остановки поиска</span>
+  </div>
 
   <template id="template__alert">
     <div class="modal__container">
@@ -88,7 +90,7 @@
                 <option value="Unequal">&lt;&gt;</option>
               </select>
               <input class="limitations__result" type="number" placeholder="Число">
-              <button class="list_item__button_delete">X</button>
+              <button class="list_item__button_delete"></button>
             </div>
           </template>
           <section class="limitations__list"></section>
@@ -150,6 +152,6 @@
 
   </main>
 
-  <script src="dist/bundle.js"></script>
+  <script src="bundle.js"></script>
 </body>
 </html>

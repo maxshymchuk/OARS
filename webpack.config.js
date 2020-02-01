@@ -5,7 +5,7 @@ module.exports = {
   entry: './src/script.ts',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, './dist')
+    path: path.resolve(__dirname, './')
   },
   resolve: {
     extensions: ['.webpack.js', '.web.js', '.ts', '.js']
