@@ -1,0 +1,70 @@
+@import './variables.scss';
+
+.instruction {
+  $buttonSize: 30px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: $maxLayer;
+
+  .instruction__button_showhide {
+    position: absolute;
+    width: $buttonSize;
+    height: $buttonSize;
+    left: $item_gap / 2;
+    top: -$buttonSize / 2;
+    margin: 0;
+    padding: 0;
+    box-shadow: $box_shadow;
+    overflow: hidden;
+    .arrows {
+      width: $buttonSize;
+      height: $buttonSize;
+      background-image: url("../assets/arrow.svg");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 50%;
+      &.closed {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .instruction__container {
+    background-color: $card_color;
+    max-height: $instruction_max_height;
+    overflow-y: auto;
+    box-shadow: 0 0 10px 0 $box_shadow_color;
+    border-top: 2px solid $accent_color;
+    padding: $item_gap / 2; 
+    font-size: 1rem;
+
+    p {
+      margin: 0;
+      &.title {
+        margin: 0 $buttonSize;
+        text-align: center;
+        margin: $item_gap / 2 0;
+      }
+      &.warning,
+      &.advice {
+        display: block;
+        margin: $item_gap / 2 0;
+        padding: 4px 8px;
+        border-radius: $border_radius;
+      }
+      &.warning {
+        background-color: $instruction_warning_color;
+      }
+      &.advice {
+        background-color: $instruction_advice_color;
+      }
+    }
+
+    ul {
+      margin: 0;
+      padding-left: $item_gap;
+    }
+  }
+}

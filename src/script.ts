@@ -1,51 +1,82 @@
-import { SetupElements, Setup, StatusButton } from './models';
-import { setupConfig } from './config';
+import { Setup, Steps } from './models';
+import { settingsDefault, inputs, buttons } from './config';
 import { redrawFormula } from './formula';
-import { initApply, initCalculate, initResult, initLimitations } from './init';
+import { apply } from './apply';
+import { calc, worker } from './calc';
+import { step } from './functions';
+import { initValidation } from './validation';
 
 document.body.onload = () => {
+  // localStorage.clear();
   const setupParams: Setup = {
-    n: +(localStorage.getItem('oars_n') ?? setupConfig.n),
-    m: +(localStorage.getItem('oars_m') ?? setupConfig.m),
-    h: +(localStorage.getItem('oars_h') ?? setupConfig.h),
-    hmin: +(localStorage.getItem('oars_hmin') ?? setupConfig.hmin),
-    targetFunction: localStorage.getItem('oars_target__input_function')  ?? setupConfig.targetFunction,
+    n: +(localStorage.getItem('oars_n') ?? settingsDefault.n),
+    m: +(localStorage.getItem('oars_m') ?? settingsDefault.m),
+    h: +(localStorage.getItem('oars_h') ?? settingsDefault.h),
+    hmin: +(localStorage.getItem('oars_hmin') ?? settingsDefault.hmin),
+    targetFunction: localStorage.getItem('oars_targetFunction') ?? settingsDefault.targetFunction,
   }
-  const setupParamsElems: SetupElements = {
-    n: document.getElementById('settings__input_n') as HTMLInputElement,
-    m: document.getElementById('settings__input_m') as HTMLInputElement,
-    h: document.getElementById('settings__input_h') as HTMLInputElement,
-    hmin: document.getElementById('settings__input_hmin') as HTMLInputElement
-  };
-  for (let i in setupParamsElems) {
-    setupParamsElems[i].addEventListener('focus', e => (e.target as HTMLInputElement).classList.remove('error'));
-    setupParamsElems[i].addEventListener('keyup', () => localStorage.setItem(`oars_${i}`, setupParamsElems[i].value));
-    setupParamsElems[i].value = setupParams[i];
-  }
-  const targetFunction = document.getElementById('target__input_function') as HTMLInputElement;
-  targetFunction.value = setupParams.targetFunction;
-
-  const buttonApply = document.getElementById('settings__button_apply') as HTMLButtonElement;
-  const buttonCalculate = document.getElementById('controls__button_calculate') as StatusButton;
-  const buttonResult = document.getElementById('controls__button_result') as HTMLButtonElement;
-  const buttonAddLimit = document.getElementById('limitations__button_add') as HTMLButtonElement;
-
-  buttonCalculate.status = [false, false, true];
-  buttonCalculate.checkStatus = () => {
-    buttonCalculate.disabled = !buttonCalculate.status.reduce((prev: boolean, curr: boolean) => prev && curr, true)
+  for (let i in inputs) {
+    inputs[i].addEventListener('keyup', () => {
+      localStorage.setItem(`oars_${i}`, inputs[i].value);
+    });
+    inputs[i].addEventListener('keydown', () => step.set(Steps.Settings));
+    inputs[i].value = setupParams[i];
   }
 
-  buttonApply.addEventListener('click', () => initApply(setupParamsElems));
-  buttonCalculate.addEventListener('click', () => initCalculate(setupParamsElems));
-  buttonResult.addEventListener('click', () => initResult());
-  buttonAddLimit.addEventListener('click', () => initLimitations());
+  buttons.apply.addEventListener('click', () => apply());
+  buttons.calculate.addEventListener('click', () => calc());
 
-  const expressions: NodeList = document.querySelectorAll('input[name="expression"]');
-  expressions.forEach(exp => {
+  buttons.addLimit.addEventListener('click', () => {
+    step.set(Steps.Limits)
+
+    const templateLineItem = document.getElementById('template__limitations__list_item') as HTMLTemplateElement;
+    const limitationsList = document.querySelector('.limitations .limitations__list');
+
+    const clone: Node = templateLineItem.content.cloneNode(true);
+    const lineItem = (clone as Element).querySelector('.list_item');
+
+    const input = lineItem.querySelector('input[name="expression"]');
     ['keyup','focus'].forEach(event =>
-      exp.addEventListener(event, (e: any) => redrawFormula((e.target as HTMLInputElement)))
+      input.addEventListener(event, (e: Event) => redrawFormula((e.target as HTMLInputElement)))
     );
+    input.addEventListener('keydown', () => step.set(Steps.Limits));
+
+    const delLimitButton = lineItem.querySelector('.list_item__button_delete') as HTMLButtonElement;
+    delLimitButton.addEventListener('click', () => {
+      limitationsList.removeChild(lineItem);
+    })
+
+    limitationsList.appendChild(lineItem);
+  });
+
+  inputs.targetFunction.addEventListener('keydown', () => step.set(Steps.Target));
+  ['keyup','focus'].forEach(event =>
+    inputs.targetFunction.addEventListener(event, (e: Event) => redrawFormula((e.target as HTMLInputElement)))
+  );
+  
+  initValidation();
+
+  const preloader = document.getElementById('preloader');
+  preloader.addEventListener('dblclick', () => {
+    document.getElementById('result__list').innerText = '';
+    worker.terminate();
+    preloader.classList.remove('visible');
   })
 
-  redrawFormula(targetFunction);
+  const showHideInstrButton = document.getElementById('instruction__button_showhide') as HTMLButtonElement;
+  showHideInstrButton.addEventListener('click', (e: Event) => {
+    const target = (e.target as HTMLElement);
+    const content = document.querySelector('.instruction__container .content') as HTMLElement;
+    if (target.classList.contains('closed')) {
+      target.classList.remove('closed');
+      content.style.removeProperty('display');
+    } else {
+      target.classList.add('closed');
+      content.style.display = 'none';
+    }
+  })
+
+  step.reset();
+
+  document.body.style.opacity = '1';
 }

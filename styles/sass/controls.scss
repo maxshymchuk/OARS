@@ -1,34 +1,23 @@
+@import './variables.scss';
+@import './mixins.scss';
+
 .controls {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  @include container;
 
-  .controls__container {
-    display: flex;
-    align-items: stretch;
-    flex-direction: row;
-    height: $controls_height;
-    box-shadow: 0 0 10px 0 $box_shadow_color;
-
-    .controls__button_result,
-    .controls__button_calculate {
-      flex: 1;
-      height: auto;
-      border-radius: 0;
-      text-transform: uppercase;
+  .controls__button_calculate {
+    height: 40px;
+    padding: 0 40px;
+    box-shadow: $box_shadow;
+    text-transform: uppercase;
+    background-color: $accent_color;
+    margin-top: 0;
+    &:disabled,
+    &:disabled:hover {
+      cursor: inherit;
+      background-color: $accent_disabled_color;
     }
-
-    .controls__button_calculate {
-      background-color: $accent_color;
-      &:disabled,
-      &:disabled:hover {
-        cursor: inherit;
-        background-color: $accent_disabled_color;
-      }
-      &:hover {
-        background-color: $accent_hover_color;
-      }
+    &:hover {
+      background-color: $accent_hover_color;
     }
   }
 }

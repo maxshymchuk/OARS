@@ -2,7 +2,6 @@
 
 .result {
   @include container;
-  margin-bottom: $controls_height + $item_gap;
 
   .result__list {
     ol {

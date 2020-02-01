@@ -16,22 +16,45 @@
     }
 
     .limitations_container {
-      display: flex;
-      flex-direction: column;
       margin: 0 $item_gap / 2;
 
-      .limitations__list {
-        border-top: 1px solid #000;
-
-        .list_item {
-          display: flex;
-          margin-top: $item_gap / 2;
-        }
+      .limitations__button_add {
+        margin: 0;
       }
 
-      .limitations__button_add {
-        width: 100%;
-        margin: $item_gap / 2 auto;
+      .limitations__button_check {
+        margin: $item_gap / 2 0;
+      }
+
+      .limitations__list {
+        .list_item {
+          display: grid;
+          grid-gap: 10px;
+          grid-template-columns: auto 40px auto $item_line_height;
+          grid-template-rows: $item_line_height;
+          margin-bottom: $item_gap / 2;
+          .input_group {
+            .limitations__expression {
+              width: 100%;
+              box-sizing: border-box;
+            }
+          }
+          .limitations__sign {
+            width: 40px; 
+          }
+          .limitations__result {
+            width: 100%;
+            box-sizing: border-box;
+          }
+          .list_item__button_delete {
+            width: 25px;
+            margin: 0;
+            background-image: url("../assets/cross.svg");
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 50%;
+          }
+        }
       }
     }
   }

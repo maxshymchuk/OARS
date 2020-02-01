@@ -11,6 +11,10 @@
       @include list-item-label;
       flex-shrink: 0;
       margin-right: $item-gap / 2;
+
+      input {
+        min-width: 100px;
+      }
     }
   }
 }

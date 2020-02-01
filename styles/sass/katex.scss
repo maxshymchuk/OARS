@@ -847,6 +847,7 @@
 
 .katex-display {
   display: block;
+  overflow: hidden;
 
   > .katex {
     display: block;
@@ -856,6 +857,9 @@
     > .katex-html {
       display: block;
       position: relative;
+      float: right;
+      white-space: nowrap;
+      margin: 1em $item_gap / 2;
 
       > .tag {
         position: absolute;
