@@ -10,13 +10,7 @@ function randInt(a: number, b: number): number {
 
 export let worker: Worker;
 
-export function calc() {
-  const x: X[] = [];
-  const inputsX = {
-    values: [...document.querySelectorAll('input[id*=variables_list__input_x]')] as HTMLInputElement[],
-    mins: [...document.querySelectorAll('input[id*=variables_list__input_min]')] as HTMLInputElement[],
-    maxs: [...document.querySelectorAll('input[id*=variables_list__input_max]')] as HTMLInputElement[]
-  }
+export function getLimitExps(): string[] {
   const limitItems = [...document.querySelectorAll('.limitations_container .list_item')] as HTMLElement[];
   const inputsLimit = {
     funcs: [...document.querySelectorAll('.limitations_container .limitations__expression')] as HTMLInputElement[],
@@ -39,6 +33,16 @@ export function calc() {
         limitExps.push(`${inputsLimit.funcs[i].value}${option}${inputsLimit.results[i].value}`);
     } 
   }
+  return limitExps;
+}
+
+export function calc() {
+  const x: X[] = [];
+  const inputsX = {
+    values: [...document.querySelectorAll('input[id*=variables_list__input_x]')] as HTMLInputElement[],
+    mins: [...document.querySelectorAll('input[id*=variables_list__input_min]')] as HTMLInputElement[],
+    maxs: [...document.querySelectorAll('input[id*=variables_list__input_max]')] as HTMLInputElement[]
+  }  
   for (let i = 0; i < +inputs.n.value; i++) {
     x.push({
       value: +inputsX.values[i].value,
@@ -61,7 +65,7 @@ export function calc() {
       targetFunction: inputs.targetFunction.value
     }, 
     values: x,
-    limits: limitExps
+    limits: getLimitExps()
   });
   worker.addEventListener("message", (event: any) => {
     const result: X[] = event.data;

@@ -1,6 +1,7 @@
 import { settingsValidation, buttons, settingsErrors, inputs } from "./config";
 import { step, test } from "./functions";
 import { Steps } from "./models";
+import { getLimitExps } from "./calc";
 
 export function initValidation() {
 
@@ -26,11 +27,22 @@ export function initValidation() {
     limitElems.forEach(lineItem => {
       const expInput = lineItem.querySelector('.limitations__expression') as HTMLInputElement;
       const resInput = lineItem.querySelector('.limitations__result') as HTMLInputElement;
-      
+
       if (!expInput.value && !resInput.value) {
         limitList.removeChild(lineItem);
-      } else if (!expInput.value && resInput.value || expInput.value && !resInput.value) {
+      } else if (!expInput.value && resInput.value) {
         isAllValid = false;
+        expInput.classList.add('error');
+        expInput.setAttribute('title', 'Введите выражение');
+      } else if (expInput.value && !resInput.value) {
+        isAllValid = false;
+        resInput.classList.add('error');
+        resInput.setAttribute('title', 'Введите число');
+      } else {
+        expInput.classList.remove('error');
+        expInput.removeAttribute('title');
+        resInput.classList.remove('error');
+        resInput.removeAttribute('title');
       }
 
       try {
@@ -41,8 +53,10 @@ export function initValidation() {
         expInput.setAttribute('title', error);
         return;
       }
-      expInput.classList.remove('error');
-      expInput.removeAttribute('title');
+      if (isAllValid) {
+        expInput.classList.remove('error');
+        expInput.removeAttribute('title');
+      }
     })
 
     if (isAllValid) step.set(Steps.Vars);
@@ -83,6 +97,19 @@ export function initValidation() {
       }
     }
 
+    const limits: string[] = getLimitExps();
+    for (let i = 0; i < limits.length; i++) {
+      const res = test(limits[i], inputsX.map(i => +i.value));
+      isValid = isValid && res;
+      if (!res) {
+        inputsX.forEach(i => {
+          i.classList.add('error');
+          i.setAttribute('title', 'Все ограничения должны выполняться при начальных значениях X0');
+        });
+        break;
+      }
+    }
+    
     if (isValid) step.set(Steps.Calc);
   });
 

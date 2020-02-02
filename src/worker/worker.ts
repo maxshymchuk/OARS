@@ -26,22 +26,18 @@ function rand(a: number, b: number): number {
 const ctx: Worker = self as any;
  
 ctx.addEventListener("message", (message: MessageEvent) => {
-  const params = (message.data as VarMessage).params;
-  const values = (message.data as VarMessage).values;
-  const limits = (message.data as VarMessage).limits;
+  const {params, values, limits} = (message.data as VarMessage);
+  let {n, m, h, hmin, targetFunction} = params;
 
   const checkLimits = (x: X[]): boolean => {
-    return limits.map(i => !!evaluate(i, x))
-      .reduce((prev: boolean, curr: boolean) => prev && curr, true);
+    return limits.map(i => !!evaluate(i, x)).reduce((prev: boolean, curr: boolean) => prev && curr, true);
   }
-
-  let {n, m, h, hmin, targetFunction: targetFunction} = params;
 
   const isStepOver = (): boolean => h <= hmin;
   const isAttemptsOver = (M: number): boolean => M === m;
 
-  let x0: X[] = values;
-  let x: X[] = values;
+  let x0: X[] = values.map((i: X) => copy<X>(i));
+  let x: X[] = values.map((i: X) => copy<X>(i));
   let f0: number = evaluate(targetFunction, x0);
 
   do {
@@ -76,7 +72,7 @@ ctx.addEventListener("message", (message: MessageEvent) => {
       } else {
         const fnew: number = evaluate(targetFunction, x);
         if (fnew < f0) {
-          f0 = fnew; // ATTENTION
+          f0 = fnew;
           x0 = x.map((i: X) => copy<X>(i));
         } else {
           M++;
