@@ -1,6 +1,8 @@
 .editorconfig
 dist/
 styles/style.css
+bundle.js
+worker.js
 
 # Logs
 logs

@@ -6,11 +6,11 @@ export function parse(value: string) {
   return math.parse(value).toTex({parenthesis: 'auto', implicit: 'hide'});
 }
 
-export function test(func: string) {
+export function test(func: string, varX?: number[]) {
   const varNumber: number = +inputs.n.value;
   const x: {[s: string]: number} = {};
   for (let i = 0; i < varNumber; i++) {
-    x[`x${i + 1}`] = 1;
+    x[`x${i + 1}`] = varX ? varX[i] : 1;
   }
   return math.evaluate(func, x);
 }
@@ -38,10 +38,13 @@ export const step = {
     }
     title.innerHTML = instructions[`step${step.currentStep}`].title;
     content.innerHTML = instructions[`step${step.currentStep}`].content;
+    instruction.scrollTop = 0;
   },
   set(step?: number) {
-    step ? this.currentStep = step : this.currentStep++;
-    this.show();
+    if (this.currentStep !== step) {
+      step ? this.currentStep = step : this.currentStep++;
+      this.show();
+    }
   },
   reset(step?: number) {
     this.currentStep = step ?? 1;
