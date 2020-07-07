@@ -30,7 +30,7 @@
   "devDependencies": {
     "@types/katex": "^0.11.0",
     "@types/mathjs": "^6.0.2",
-    "electron": "^7.1.9",
+    "electron": "^7.2.4",
     "sass": "^1.24.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
