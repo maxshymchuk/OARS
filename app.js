@@ -15,7 +15,7 @@ function createWindow () {
     icon: 'assets/favicon.ico'
   })
   win.removeMenu();
-  win.loadFile('index.html');
+  win.loadFile('./dist/index.html');
   // win.webContents.openDevTools()
   win.on('closed', () => {
     win = null

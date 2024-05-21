@@ -10,10 +10,10 @@
     }
   },
   "scripts": {
-    "webpack": "npx webpack",
+    "webpack": "set \"NODE_OPTIONS=--openssl-legacy-provider\" && npx webpack",
     "sass": "sass styles/sass/style.scss:styles/style.css --no-source-map",
     "electron": "electron app.js",
-    "prepare": "npm run sass && npm run webpack",
+    "build": "npm run sass && npm run webpack",
     "start": "npm run webpack && npm run electron",
     "wsass": "sass styles/sass/style.scss:styles/style.css --no-source-map --watch",
     "pack32": "electron-builder --dir -w portable:ia32",
@@ -23,14 +23,16 @@
   "keywords": [],
   "author": "Max Shymchuk",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/maxshymchuk/RSOA"
+    "type": "git",
+    "url": "https://github.com/maxshymchuk/RSOA"
   },
   "license": "ISC",
   "devDependencies": {
     "@types/katex": "^0.11.0",
     "@types/mathjs": "^6.0.2",
+    "copy-webpack-plugin": "^6.4.1",
     "electron": "^7.1.9",
+    "html-webpack-plugin": "^4.5.2",
     "sass": "^1.24.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
