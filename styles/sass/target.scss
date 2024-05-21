@@ -7,14 +7,9 @@
   .target__label_function {
     @include list-item;
 
-    .label {
-      @include list-item-label;
-      flex-shrink: 0;
-      margin-right: $item-gap / 2;
-
-      input {
-        min-width: 100px;
-      }
+    gap: $item_gap / 2;
+    input {
+      min-width: 200px;
     }
   }
 }

@@ -847,12 +847,14 @@
 
 .katex-display {
   display: block;
-  overflow: hidden;
+  overflow: auto hidden;
+  scrollbar-width: thin;
 
   > .katex {
     display: block;
     text-align: center;
     white-space: nowrap;
+    width: fit-content;
 
     > .katex-html {
       display: block;

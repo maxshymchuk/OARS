@@ -11,6 +11,7 @@
 body {
   margin: 0;
   transition: opacity $appear_time;
+  min-width: 300px;
   
   * {
     font-family: 'ARIAL';
@@ -156,6 +157,7 @@ button {
     text-align: right;
     line-height: 1.2;
     padding: 0;
+    z-index: 1;
 
     .empty {
       margin: 1em $item_gap / 2;
@@ -172,6 +174,7 @@ button {
       height: 10px;
       transform: rotate(45deg);
       background-color: $card_color;
+      z-index: -1;
     }
   }
 }
